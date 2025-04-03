@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routes import login, signup  # Import login and signup separately
+import uvicorn
 
 app = FastAPI()
 
@@ -16,3 +17,6 @@ app.add_middleware(
 # Register routes separately
 app.include_router(signup.router, prefix="/auth", tags=["Signup"])
 app.include_router(login.router, prefix="/auth", tags=["Login"])
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
