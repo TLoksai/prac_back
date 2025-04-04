@@ -1,4 +1,3 @@
-# routes/login.py
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from db import users_collection

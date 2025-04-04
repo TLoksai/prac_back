@@ -1,8 +1,18 @@
 from fastapi import FastAPI
-from routes import signup, login
+from fastapi.middleware.cors import CORSMiddleware
+from routes import login, signup
 
 app = FastAPI()
 
-# Routes
-app.include_router(signup.router, prefix="/auth")
-app.include_router(login.router, prefix="/auth")
+# CORS middleware to allow frontend requests
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+app.include_router(signup.router, prefix="/auth", tags=["Signup"])
+app.include_router(login.router, prefix="/auth", tags=["Login"])
+
+
