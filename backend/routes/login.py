@@ -1,7 +1,7 @@
+# routes/login.py
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from routes.signup import registered_users
-
+from db import users_collection
 
 router = APIRouter()
 
@@ -11,6 +11,8 @@ class LoginRequest(BaseModel):
 
 @router.post("/login")
 async def login(request: LoginRequest):
-    if request.email in registered_users and registered_users[request.email] == request.password:
-        return {"message": "Login successful"}
-    raise HTTPException(status_code=401, detail="Invalid credentials")
+    user = await users_collection.find_one({"email": request.email})
+    if not user or user["password"] != request.password:
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+
+    return {"message": "Login successful"}
