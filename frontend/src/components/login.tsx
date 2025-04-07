@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-const API_BASE_URL = "http://127.0.0.1:8000/auth"; // Ensure this matches your FastAPI backend
+const API_BASE_URL = "https://prac-back-14.onrender.com/auth"; // Ensure this matches your FastAPI backend
 
 const AuthForm = () => {
   const [isSignup, setIsSignup] = useState(false);
